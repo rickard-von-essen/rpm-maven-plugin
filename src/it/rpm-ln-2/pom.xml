@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.codehaus.mojo.rpm.its</groupId>
+    <artifactId>rpm-ln-2</artifactId>
+    <version>1.0</version>
+    <packaging>rpm</packaging>
+
+    <inceptionYear>2009</inceptionYear>
+    <organization>
+        <name>my org</name>
+        <url>www.my.org</url>
+    </organization>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <version>2.1-alpha-3-SNAPSHOT</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <distribution>My App</distribution>
+                    <group>Application/Collectors</group>
+                    <needarch>false</needarch>
+                    <defaultUsername>myuser</defaultUsername>
+                    <defaultGroupname>mygroup</defaultGroupname>
+
+                    <mappings>
+                        <mapping>
+                            <directory>/usr/myusr/empty</directory>
+                        </mapping>
+                        <mapping>
+                            <directory>/usr/myusr/files</directory>
+                            <sources>
+                                <source>
+                                    <location>${project.basedir}/src/files</location>
+                                </source>
+                            </sources>
+                        </mapping>
+                        <mapping>
+                            <directory>/usr/myusr/files2</directory>
+                        </mapping>
+
+                        <!--
+                             Link a singel file -  ccc.txt -> aaa.txt
+                             cd /usr/myusr/files; ln -s aaa.txt ccc.txt
+
+                             /usr/myusr/files/ccc.txt 7 1364570892 00000000000000000000000000000000 0120777 myuser mygroup 0 0 0 aaa.txt
+                        -->
+                        <mapping>
+                            <directory>/usr/myusr/files</directory>
+                            <sources>
+                                <softlinkSource>
+                                    <destination>ccc.txt</destination>
+                                    <location>aaa.txt</location>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+
+                        <!--
+                             Link multiple files -  /usr/myusr/files2/* -> /usr/myusr/files/*
+                             ln -s /usr/myusr/files/* /usr/myusr/files2/
+                        -->
+                        <mapping>
+                            <directory>/usr/myusr/files2</directory>
+                            <sources>
+                                <softlinkSource>
+                                    <destination>aaa.txt</destination>
+                                    <location>/usr/myusr/files/aaa.txt</location>
+                                </softlinkSource>
+                                <softlinkSource>
+                                    <destination>bbb.txt</destination>
+                                    <location>/usr/myusr/files/bbb.txt</location>
+                                </softlinkSource>
+                                <softlinkSource>
+                                    <destination>ccc.txt</destination>
+                                    <location>/usr/myusr/files/ccc.txt</location>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+
+                        <!--
+                             Link an empty directory -  /usr/dir_link -> /usr/myusr/empty
+                             ln -s /usr/myusr/empty /usr/dir_link
+
+                             /usr/dir_link 16 1364570668 00000000000000000000000000000000 0120777 myuser mygroup 0 0 0 /usr/myusr/empty
+                        -->
+                        <mapping>
+                            <directory>/usr/dir_link</directory>
+                            <sources>
+                                <softlinkSource>
+                                    <location>/usr/myusr/empty</location>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+
+
+                        <!--
+                             Link an non empty directory -  /usr/dir_link2 -> /usr/myusr/files
+                             ln -s /usr/myusr/files /usr/dir_link2
+
+                             /usr/dir_link2 16 1364571529 00000000000000000000000000000000 0120777 myuser mygroup 0 0 0 /usr/myusr/files
+                        -->
+                        <mapping>
+                            <directory>/usr/dir_link2</directory>
+                            <sources>
+                                <softlinkSource>
+                                    <location>/usr/myusr/files</location>
+                                </softlinkSource>
+                            </sources>
+                        </mapping>
+                    </mappings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
