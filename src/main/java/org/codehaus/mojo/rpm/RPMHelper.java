@@ -212,4 +212,28 @@ final class RPMHelper
         
         return stdout.getOutput().trim();
     }
+
+    public String getArch() throws MojoExecutionException
+    {
+        final Commandline cl = new Commandline();
+        cl.setExecutable( "uname" );
+        cl.createArg().setValue( "-m" );
+
+        final StringStreamConsumer stdConsumer = new StringStreamConsumer();
+        final StreamConsumer errConsumer = new LogStreamConsumer( LogStreamConsumer.WARN, mojo.getLog() );
+        try
+        {
+            if ( mojo.getLog().isDebugEnabled() )
+                mojo.getLog().debug( "About to execute \'" + cl.toString() + "\'" );
+            final int result = CommandLineUtils.executeCommandLine( cl, stdConsumer, errConsumer );
+            if ( result != 0 )
+                throw new MojoExecutionException( "uname returned: \'" + result + "\' executing \'"
+                        + cl.toString() + "\'" );
+        } catch ( CommandLineException e )
+        {
+            throw new MojoExecutionException( "Unable get system architecture", e );
+        }
+
+        return stdConsumer.getOutput().trim();
+    }
 }
