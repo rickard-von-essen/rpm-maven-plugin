@@ -25,9 +25,9 @@ if (!spec.release == 1)
 {
     throw new java.lang.AssertionError("Incorrect release in spec file: 1 != " + spec.release);
 }
-if (!spec.license.equals("2009 my org"))
+if (!spec.license.equals("(c) My self - 2013"))
 {
-    throw new java.lang.AssertionError("Incorrect license in spec file: 2009 my org != " + spec.license);
+    throw new java.lang.AssertionError("Incorrect license in spec file: (c) My self - 2013 != " + spec.license);
 }
 
 List fileInfos = RpmUtil.queryPackageForFileInfo(rpm)
@@ -126,7 +126,6 @@ if (!unversionedWar)
 def proc = ["sh", "-c", "rpm2cpio ${rpm.getAbsolutePath()} | cpio -iv --to-stdout '.*filter.txt'"].execute()
 proc.waitFor()
 content = proc.in.text
-
 if (!"org.codehaus.mojo.rpm.its".equals(content))
     throw new java.lang.AssertionError("contents of filter.txt expected[org.codehaus.mojo.rpm.its] actual[${content}]");
 

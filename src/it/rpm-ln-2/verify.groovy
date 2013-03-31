@@ -20,9 +20,6 @@ if (!spec.version.equals("1.0"))
 if (!spec.release == 1)
     throw new java.lang.AssertionError("Incorrect release in spec file: 1 != " + spec.release);
 
-if (!spec.license.equals("2009 my org"))
-    throw new java.lang.AssertionError("Incorrect license in spec file: 2009 my org != " + spec.license);
-
 List fileInfos = RpmUtil.queryPackageForFileInfo(rpm)
 
 if (fileInfos.size() != 11)

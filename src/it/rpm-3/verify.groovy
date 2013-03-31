@@ -22,7 +22,7 @@ if (!spec.version.equals("1.0"))
     throw new java.lang.AssertionError("spec version");
 if (spec.release != 1)
     throw new java.lang.AssertionError("spec release");
-if (!spec.license.equals("2009 my org"))
+if (!spec.license.equals("(c) me and myself 1945"))
     throw new java.lang.AssertionError("spec license");
 
 List fileInfos = RpmUtil.queryPackageForFileInfo(rpm)
@@ -45,9 +45,9 @@ boolean subdir = false;
 for (Iterator i = fileInfos.iterator(); i.hasNext();)
 {
     FileInfo fileInfo = (FileInfo) i.next()
-        
+
     if (fileInfo.path.equals("/etc/init.d/myapp"))
-    {   
+    {
         if (!fileInfo.user.equals("root"))
             throw new java.lang.AssertionError("file user for: " + fileInfo);
         if (!fileInfo.group.equals("root"))
@@ -60,7 +60,7 @@ for (Iterator i = fileInfos.iterator(); i.hasNext();)
             throw new java.lang.AssertionError("file user for: " + fileInfo);
         if (!fileInfo.group.equals("mygroup"))
             throw new java.lang.AssertionError("file group for: " + fileInfo);
-        
+
         //check for executable mode
         if (fileInfo.path.startsWith("/usr/myusr/app/bin/"))
         {
@@ -104,22 +104,22 @@ if (!nameScript)
 
 if (!osNameScript)
     throw new java.lang.AssertionError("os name script not found")
-    
+
 if (!archNameScript)
     throw new java.lang.AssertionError("arch name script not found")
-    
+
 if (!oldNameLink)
     throw new java.lang.AssertionError("old name link not found")
-    
+
 if (linuxNameScript)
     throw new java.lang.AssertionError("linux name script found")
 
 if (x86NameScript)
     throw new java.lang.AssertionError("x86 name script found")
-    
+
 if (!serviceLink)
     throw new java.lang.AssertionError("service link not found")
-    
+
 if (!subdir)
     throw new java.lang.AssertionError("subdir directory not found")
 
