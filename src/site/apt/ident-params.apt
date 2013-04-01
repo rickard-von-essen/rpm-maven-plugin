@@ -51,10 +51,14 @@ Identification Parameters
 
      * If a modifier exists and does not end with <<<SNAPSHOT>>>, <<<"_1">>> will be appended to end.
 
-* {copyright}
+* {license}
 
-  The copyright information for the RPM.  This is a <<one-line>> identifier of
-  the copyright, like "<<<GPL>>>".
+  A one line license information string for the RPM. Defaults to
+  <<<(c) ${project.inceptionYear} ${project.organization}>>>.
+
+* {copyright} <Deprecated>
+
+  Deprecated: use {{{./source-params.html#license}license}} instead.
 
 * {distribution}
 

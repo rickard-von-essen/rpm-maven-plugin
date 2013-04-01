@@ -42,7 +42,7 @@ This is a sample using trash collection as an example.
                     </execution>
                 </executions>
                 <configuration>
-                    <copyright>2005, SWWDC</copyright>
+                    <license>2005, SWWDC</license>
                     <distribution>Trash 2005</distribution>
                     <group>Application/Collectors</group>
                     <icon>src/main/resources/icon.gif</icon>
