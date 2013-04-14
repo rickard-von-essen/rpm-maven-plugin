@@ -84,10 +84,6 @@ for (Iterator i = fileInfos.iterator(); i.hasNext();)
             {
                 nameScript = true;
             }
-            else if (fileInfo.path.endsWith(expectedOsNameScript))
-            {
-                osNameScript = true;
-            }
         }
     }
     else if (fileInfo.path.equals("/tmp/myapp/somefile2"))
@@ -101,6 +97,15 @@ for (Iterator i = fileInfos.iterator(); i.hasNext();)
     else if (fileInfo.path.endsWith("grizzly-comet-counter.war"))
     {
         unversionedWar = true;
+    }
+}
+
+def proc = ["rpm", "-qlp", rpm.absolutePath].execute()
+proc.waitFor()
+proc.in.text.eachLine {
+    if (it.equals("/usr/myusr/app/bin/" + expectedOsNameScript))
+    {
+        osNameScript = true
     }
 }
 
