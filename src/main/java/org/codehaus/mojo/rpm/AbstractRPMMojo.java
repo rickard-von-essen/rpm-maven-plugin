@@ -26,7 +26,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -613,7 +612,7 @@ abstract class AbstractRPMMojo
      * Auxillary project artifacts.
      */
     @Parameter( required = true, readonly = true, property = "project.attachedArtifacts" )
-    private List<String> attachedArtifacts;
+    private List<Artifact> attachedArtifacts;
 
     @Component
     protected MavenProject project;
@@ -936,18 +935,16 @@ abstract class AbstractRPMMojo
         log.debug( "targetVendor = " + targetVendor );
 
         // Various checks in the mappings
-        for ( Iterator it = mappings.iterator(); it.hasNext(); )
+        for ( Mapping map : mappings )
         {
-            Mapping map = (Mapping) it.next();
             if ( map.getDirectory() == null )
             {
                 throw new MojoFailureException( "<mapping> element must contain the destination directory" );
             }
             if ( map.getSources() != null )
             {
-                for ( Iterator sit = map.getSources().iterator(); sit.hasNext(); )
+                for ( Source src : map.getSources() )
                 {
-                    Source src = (Source) sit.next();
                     if ( src.getLocation() == null )
                     {
                         throw new MojoFailureException( "<mapping><source> tag must contain the source directory" );
@@ -1026,9 +1023,8 @@ abstract class AbstractRPMMojo
         {
             return;
         }
-        for ( Iterator i = defineStatements.iterator(); i.hasNext(); )
+        for ( String define : defineStatements )
         {
-            final String define = (String) i.next();
             String[] parts = define.split( " " );
             if ( parts.length == 2 )
             {
@@ -1537,7 +1533,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #attachedArtifacts}.
      */
-    final List<String> getAttachedArtifacts()
+    final List<Artifact> getAttachedArtifacts()
     {
         return this.attachedArtifacts;
     }

@@ -20,7 +20,6 @@ package org.codehaus.mojo.rpm;
  */
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 import org.apache.maven.artifact.Artifact;
@@ -163,10 +162,8 @@ public class Dependency
     {
         List<Artifact> retval = new ArrayList();
 
-        for ( Iterator it = in.iterator(); it.hasNext(); )
+        for ( String s : in )
         {
-            String s = (String) it.next();
-
             // Make sure we have group and artifact
             int p1 = s.indexOf( ":" );
             if ( p1 == -1 )
