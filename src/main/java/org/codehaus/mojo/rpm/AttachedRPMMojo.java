@@ -21,6 +21,8 @@ package org.codehaus.mojo.rpm;
 
 import java.io.File;
 
+import org.apache.maven.plugins.annotations.*;
+
 import org.apache.maven.project.MavenProjectHelper;
 
 /**
@@ -29,24 +31,19 @@ import org.apache.maven.project.MavenProjectHelper;
  * @author Brett Okken, Cerner Corp.
  * @version $Id$
  * @since 2.0-beta-2
- * @requiresDependencyResolution runtime
- * @goal attached-rpm
- * @phase package
  */
+@Mojo( name = "attached-rpm", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE )
 public class AttachedRPMMojo
     extends AbstractRPMMojo
 {
 
     /**
      * The classifier for the rpm secondary artifact.
-     * 
-     * @parameter
      */
+    @Parameter
     private String classifier;
 
-    /**
-     * @component
-     */
+    @Component
     private MavenProjectHelper mavenProjectHelper;
     
     /**

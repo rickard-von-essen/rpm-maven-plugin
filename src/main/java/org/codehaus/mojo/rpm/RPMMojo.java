@@ -19,16 +19,18 @@ package org.codehaus.mojo.rpm;
  * under the License.
  */
 
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.ResolutionScope;
+
 import java.io.File;
 
 /**
  * Construct the RPM file.
  * 
  * @version $Id$
- * @requiresDependencyResolution runtime
- * @goal rpm
- * @phase package
  */
+@Mojo( name = "rpm", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE )
 public class RPMMojo
     extends AbstractRPMMojo
 {

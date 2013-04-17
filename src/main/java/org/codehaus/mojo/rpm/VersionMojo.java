@@ -24,6 +24,9 @@ import java.text.MessageFormat;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.codehaus.mojo.rpm.VersionHelper.RPMVersionableMojo;
 
@@ -33,36 +36,28 @@ import org.codehaus.mojo.rpm.VersionHelper.RPMVersionableMojo;
  * @author Brett Okken
  * @version $Id$
  * @since 2.0
- * @goal version
- * @phase initialize
  */
+@Mojo( name = "version", defaultPhase = LifecyclePhase.INITIALIZE )
 public class VersionMojo
     extends AbstractMojo
     implements RPMVersionableMojo
 {
     /**
      * The maven project.
-     * 
-     * @parameter expression="${project}"
-     * @required
-     * @readonly
      */
+    @Parameter( required = true, readonly = true, property = "project" )
     private MavenProject project;
 
     /**
      * The version portion of the RPM file name.
-     * 
-     * @parameter alias="version" expression="${project.version}"
-     * @required
      */
+    @Parameter( required = true, alias = "version", property = "project.version" )
     private String projversion;
 
     /**
      * The system property to set the calculated version to.
-     * 
-     * @parameter default-value="rpm.version"
-     * @required
      */
+    @Parameter( required = true, defaultValue = "rpm.version" )
     private String versionProperty;
 
     /**
@@ -77,17 +72,14 @@ public class VersionMojo
      * <li>If a modifier exists and does not end with <i>SNAPSHOT</i>, <code>"_1"</code> will be appended to end.</li>
      * </ul>
      * </p>
-     * 
-     * @parameter
      */
+    @Parameter
     private String release;
 
     /**
      * The system property to set the calculated release to.
-     * 
-     * @parameter default-value="rpm.release"
-     * @required
      */
+    @Parameter( required = true, defaultValue = "rpm.release" )
     private String releaseProperty;
 
     /**

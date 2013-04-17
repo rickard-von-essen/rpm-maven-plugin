@@ -22,6 +22,8 @@ package org.codehaus.mojo.rpm;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.artifact.DefaultArtifact;
 import org.apache.maven.artifact.versioning.InvalidVersionSpecificationException;
 import org.apache.maven.artifact.versioning.VersionRange;
@@ -44,10 +46,10 @@ public class Dependency
     // // // Properties
 
     /** List of dependencies to include. */
-    private List/*Artifact*/ includes;
+    private List<Artifact> includes;
 
     /** List of dependencies to exclude. */
-    private List/*Artifact*/ excludes;
+    private List<Artifact> excludes;
     
     /**
      *  Strip version is false by default.
@@ -62,7 +64,7 @@ public class Dependency
      * 
      * @return The list of dependencies to include.
      */
-    public List/*Artifact*/ getIncludes()
+    public List<Artifact> getIncludes()
     {
         return includes;
     }
@@ -73,7 +75,7 @@ public class Dependency
      * @param incls The new list of dependencies to include.
      * @throws MojoExecutionException if the parse fails
      */
-    public void setIncludes( List/*String*/ incls )
+    public void setIncludes( List<String> incls )
         throws MojoExecutionException
     {
         includes = parseList( incls );
@@ -84,7 +86,7 @@ public class Dependency
      * 
      * @return The list of dependencies to exclude.
      */
-    public List/*Artifact*/ getExcludes()
+    public List<Artifact> getExcludes()
     {
         return excludes;
     }
@@ -95,7 +97,7 @@ public class Dependency
      * @param excls The new list of dependencies to exclude.
      * @throws MojoExecutionException if the parse fails
      */
-    public void setExcludes( List/*String*/ excls )
+    public void setExcludes( List<String> excls )
         throws MojoExecutionException
     {
         excludes = parseList( excls );
@@ -113,7 +115,7 @@ public class Dependency
 
     /**
      * Set the stripVersion property
-     * 
+     *
      * @param stripVersion
      * @throws MojoExecutionException if the parse fails
      */
@@ -156,10 +158,10 @@ public class Dependency
      * @return A list of parsed artifact identifiers
      * @throws MojoExecutionException if the parse fails
      */
-    private List parseList( List/*Artifact*/ in )
+    private List parseList( List<String> in )
         throws MojoExecutionException
     {
-        List/*Artifact*/ retval = new ArrayList();
+        List<Artifact> retval = new ArrayList();
 
         for ( Iterator it = in.iterator(); it.hasNext(); )
         {

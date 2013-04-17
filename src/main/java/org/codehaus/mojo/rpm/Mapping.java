@@ -63,7 +63,7 @@ public class Mapping
     private String groupname;
 
     /** Mapping information for source directories. */
-    private List sources;
+    private List<Source> sources;
 
     /** Mapping information for artifacts. */
     private ArtifactMap artifact;
@@ -97,7 +97,7 @@ public class Mapping
      * This is populated by {@link #sources}, {@link #artifact}, and {@link #dependency}.
      * </p>
      */
-    private List copiedFileNamesRelativeToDestination;
+    private List<String> copiedFileNamesRelativeToDestination;
     
     /**
      * List of files that will be added by soft link for the Mapping.
@@ -107,7 +107,7 @@ public class Mapping
      * </p>
      * @since 2.0-beta-3
      */
-    private List linkedFileNamesRelativeToDestination;
+    private List<String> linkedFileNamesRelativeToDestination;
     
     /**
      * Indicates if the {@link #sources} contain any {@link SoftlinkSource} instances.
@@ -293,7 +293,7 @@ public class Mapping
      * 
      * @return The list of source file specifications.
      */
-    public List getSources()
+    public List<Source> getSources()
     {
         return sources;
     }
@@ -303,7 +303,7 @@ public class Mapping
      * 
      * @param srclist The new list of source file specifications.
      */
-    public void setSources( List srclist )
+    public void setSources( List<Source> srclist )
     {
         sources = srclist;
     }
@@ -479,7 +479,7 @@ public class Mapping
      * @return The names of files copied to the <tt>destination</tt>. The <tt>List</tt> returned will never be
      * <code>null</code>, but may be immutable.
      */
-    List getCopiedFileNamesRelativeToDestination()
+    List<String> getCopiedFileNamesRelativeToDestination()
     {
         return this.copiedFileNamesRelativeToDestination != null ? this.copiedFileNamesRelativeToDestination
                         : Collections.EMPTY_LIST;
@@ -491,11 +491,11 @@ public class Mapping
      * @param copiedFileNamesRelativeToDestination relative names of files to add
      * @see #getCopiedFileNamesRelativeToDestination()
      */
-    void addCopiedFileNamesRelativeToDestination( List copiedFileNamesRelativeToDestination )
+    void addCopiedFileNamesRelativeToDestination( List<String> copiedFileNamesRelativeToDestination )
     {
         if ( this.copiedFileNamesRelativeToDestination == null )
         {
-            this.copiedFileNamesRelativeToDestination = new ArrayList( copiedFileNamesRelativeToDestination );
+            this.copiedFileNamesRelativeToDestination = new ArrayList<String>( copiedFileNamesRelativeToDestination );
         }
         else
         {
@@ -513,7 +513,7 @@ public class Mapping
     {
         if ( this.copiedFileNamesRelativeToDestination == null )
         {
-            this.copiedFileNamesRelativeToDestination = new LinkedList();
+            this.copiedFileNamesRelativeToDestination = new LinkedList<String>();
         }
         this.copiedFileNamesRelativeToDestination.add( copiedFileNameRelativeToDestination );
     }
@@ -527,7 +527,7 @@ public class Mapping
      *         <code>null</code>, but may be immutable.
      * @since 2.0-beta-3
      */
-    List getLinkedFileNamesRelativeToDestination()
+    List<String> getLinkedFileNamesRelativeToDestination()
     {
         return this.linkedFileNamesRelativeToDestination != null ? this.linkedFileNamesRelativeToDestination
                         : Collections.EMPTY_LIST;
@@ -544,7 +544,7 @@ public class Mapping
     {
         if ( this.linkedFileNamesRelativeToDestination == null )
         {
-            this.linkedFileNamesRelativeToDestination = new LinkedList();
+            this.linkedFileNamesRelativeToDestination = new LinkedList<String>();
         }
         
         linkedFileNamesRelativeToDestination.add( linkedFileNameRelativeToDestination );
