@@ -39,10 +39,10 @@ public class Source
     private String location;
 
     /** The list of inclusions. */
-    private List includes;
+    private List<String> includes;
 
     /** The list of exclusions. */
-    private List excludes;
+    private List<String> excludes;
 
     /**
      * Optional destination name for the file identified by {@link #location}.<br/>
@@ -121,7 +121,7 @@ public class Source
      * 
      * @return The list of files to include in the package.
      */
-    public List getIncludes()
+    public List<String> getIncludes()
     {
         return includes;
     }
@@ -131,7 +131,7 @@ public class Source
      * 
      * @param incl The new list of files to include in the package.
      */
-    public void setIncludes( List incl )
+    public void setIncludes( List<String> incl )
     {
         includes = incl;
     }
@@ -141,7 +141,7 @@ public class Source
      * 
      * @return The list of files to exclude from the package.
      */
-    public List getExcludes()
+    public List<String> getExcludes()
     {
         return excludes;
     }
@@ -151,7 +151,7 @@ public class Source
      * 
      * @param excl The new list of files to exclude from the package.
      */
-    public void setExcludes( List excl )
+    public void setExcludes( List<String> excl )
     {
         excludes = excl;
     }

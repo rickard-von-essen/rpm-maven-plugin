@@ -184,7 +184,7 @@ final class FileHelper
      * @return List of file names, relative to <i>dest</i>, copied to <i>dest</i>.
      * @throws MojoExecutionException if a problem occurs
      */
-    private List copySource( File src, String srcName, File dest, List incl, List excl, boolean filter )
+    private List copySource( File src, String srcName, File dest, List<String> incl, List<String> excl, boolean filter )
         throws MojoExecutionException
     {
         try
@@ -198,13 +198,13 @@ final class FileHelper
                 String[] ia = null;
                 if ( incl != null )
                 {
-                    ia = (String[]) incl.toArray( new String[0] );
+                    ia = incl.toArray( new String[0] );
                 }
 
                 String[] ea = null;
                 if ( excl != null )
                 {
-                    ea = (String[]) excl.toArray( new String[0] );
+                    ea = excl.toArray( new String[0] );
                 }
 
                 copier.addDirectory( src, "", ia, ea );
@@ -224,7 +224,7 @@ final class FileHelper
             // Perform the copy
             copier.createArchive();
 
-            List copiedFiles = new ArrayList( copiedFilesMap.size() );
+            List<String> copiedFiles = new ArrayList<String>( copiedFilesMap.size() );
             for ( Iterator i = copiedFilesMap.keySet().iterator(); i.hasNext(); )
             {
                 String key = (String) i.next();
@@ -297,10 +297,10 @@ final class FileHelper
     private List selectArtifacts( ArtifactMap am )
     {
         final List retval = new ArrayList();
-        final List clist = am.getClassifiers();
+        final List<String> clist = am.getClassifiers();
 
         final Artifact artifact = mojo.getArtifact();
-        final List attachedArtifacts = mojo.getAttachedArtifacts();
+        final List<String> attachedArtifacts = mojo.getAttachedArtifacts();
 
         if ( clist == null )
         {
@@ -332,11 +332,11 @@ final class FileHelper
      * @param d The artifact mapping information
      * @return The list of artifacts to package
      */
-    private List selectDependencies( Dependency d )
+    private List<Artifact> selectDependencies( Dependency d )
     {
-        List retval = new ArrayList();
-        List inc = d.getIncludes();
-        List exc = d.getExcludes();
+        List<Artifact> retval = new ArrayList<Artifact>();
+        List<Artifact> inc = d.getIncludes();
+        List<Artifact> exc = d.getExcludes();
 
         Collection deps = mojo.project.getArtifacts();
         if ( deps == null || deps.isEmpty() )
@@ -398,7 +398,7 @@ final class FileHelper
 
             final String targetOS = mojo.getTargetOS();
 
-            final Map/* <String, List<Source>> */linkTargetToSources = mojo.getLinkTargetToSources();
+            final Map<String, List<SoftlinkSource>> linkTargetToSources = mojo.getLinkTargetToSources();
 
             // it is important that for each Source we set the files that are "installed".
             for ( Iterator sit = srcs.iterator(); sit.hasNext(); )
@@ -513,7 +513,7 @@ final class FileHelper
      * @param list The list to check against
      * @return <code>true</code> if the dependency was found on the list
      */
-    private boolean depMatcher( Artifact dep, List list )
+    private boolean depMatcher( Artifact dep, List<Artifact> list )
     {
         if ( list == null )
         {

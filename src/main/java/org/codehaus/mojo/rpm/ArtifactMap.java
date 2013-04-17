@@ -32,7 +32,7 @@ public class ArtifactMap
     // // // Properties
 
     /** The list of classifiers to package. */
-    private List classifiers;
+    private List<String> classifiers;
 
     // // // Bean methods
 
@@ -41,7 +41,7 @@ public class ArtifactMap
      * 
      * @return The list of classifiers to package.
      */
-    public List getClassifiers()
+    public List<String> getClassifiers()
     {
         return classifiers;
     }
@@ -51,7 +51,7 @@ public class ArtifactMap
      * 
      * @param clist The new list of classifiers to package.
      */
-    public void setClassifiers( List clist )
+    public void setClassifiers( List<String> clist )
     {
         classifiers = clist;
     }

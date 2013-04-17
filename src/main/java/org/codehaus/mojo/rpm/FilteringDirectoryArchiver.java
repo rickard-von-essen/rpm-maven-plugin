@@ -27,6 +27,7 @@ import org.apache.maven.shared.filtering.MavenFileFilter;
 import org.apache.maven.shared.filtering.MavenFilteringException;
 import org.codehaus.plexus.archiver.ArchiveEntry;
 import org.codehaus.plexus.archiver.dir.DirectoryArchiver;
+import org.codehaus.plexus.util.FileUtils;
 
 /**
  * Extends the DirectoryArchiver and adds the ability to filter each file that is
@@ -41,7 +42,7 @@ final class FilteringDirectoryArchiver
 {
     private MavenFileFilter mavenFileFilter;
 
-    private List/* FileUtils.FilterWrapper */filterWrappers;
+    private List<FileUtils.FilterWrapper> filterWrappers;
 
     private boolean filter;
 
@@ -64,7 +65,7 @@ final class FilteringDirectoryArchiver
     /**
      * @return Returns the {@link #filterWrappers}.
      */
-    public List getFilterWrappers()
+    public List<FileUtils.FilterWrapper> getFilterWrappers()
     {
         return this.filterWrappers;
     }
@@ -72,7 +73,7 @@ final class FilteringDirectoryArchiver
     /**
      * @param filterWrappers The {@link #filterWrappers} to set.
      */
-    public void setFilterWrappers( List filterWrappers )
+    public void setFilterWrappers( List<FileUtils.FilterWrapper> filterWrappers )
     {
         this.filterWrappers = filterWrappers;
     }

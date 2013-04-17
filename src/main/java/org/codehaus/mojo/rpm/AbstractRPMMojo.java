@@ -65,7 +65,7 @@ abstract class AbstractRPMMojo
      * 
      * @since 2.1-alpha-1
      */
-    private final Map<String, String> macroKeyToValue = new HashMap();
+    private final Map<String, String> macroKeyToValue = new HashMap<String, String>();
 
     /**
      * The key of the map is the directory where the files should be linked to. The value is the {@code List} of
@@ -73,7 +73,7 @@ abstract class AbstractRPMMojo
      * 
      * @since 2.0-beta-3
      */
-    private final Map<String, List<Source>> linkTargetToSources = new LinkedHashMap();
+    private final Map<String, List<SoftlinkSource>> linkTargetToSources = new LinkedHashMap<String, List<SoftlinkSource>>();
 
     /**
      * The name portion of the output file name.
@@ -573,7 +573,7 @@ abstract class AbstractRPMMojo
      * @since 2.0
      */
     @Parameter
-    private List filters;
+    private List<String> filters;
 
     /**
      * Expression preceded with the String won't be interpolated \${foo} will be replaced with ${foo}
@@ -617,17 +617,6 @@ abstract class AbstractRPMMojo
 
     @Component
     protected MavenProject project;
-
-    /*
-    @Component
-    private MojoExecution mojo;
-
-    @Component // for Maven 3 only
-    private PluginDescriptor plugin;
-
-    @Component
-    private Settings settings;
-    */
 
     /**
      * A list of %define arguments
@@ -1100,7 +1089,7 @@ abstract class AbstractRPMMojo
     {
         if ( macroKeyToValue.containsKey( macro ) )
         {
-            return (String) macroKeyToValue.get( macro );
+            return macroKeyToValue.get( macro );
         }
 
         final String value = helper.evaluateMacro( macro );
@@ -1164,7 +1153,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #linkTargetToSources}.
      */
-    final Map/* <String, List<Source>> */getLinkTargetToSources()
+    final Map<String, List<SoftlinkSource>> getLinkTargetToSources()
     {
         return this.linkTargetToSources;
     }
@@ -1276,7 +1265,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #provides}.
      */
-    final LinkedHashSet getProvides()
+    final LinkedHashSet<String> getProvides()
     {
         return this.provides;
     }
@@ -1284,7 +1273,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #requires}.
      */
-    final LinkedHashSet getRequires()
+    final LinkedHashSet<String> getRequires()
     {
         return this.requires;
     }
@@ -1292,7 +1281,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #prereqs}.
      */
-    final LinkedHashSet getPrereqs()
+    final LinkedHashSet<String> getPrereqs()
     {
         return this.prereqs;
     }
@@ -1300,7 +1289,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #obsoletes}.
      */
-    final LinkedHashSet getObsoletes()
+    final LinkedHashSet<String> getObsoletes()
     {
         return this.obsoletes;
     }
@@ -1308,7 +1297,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #conflicts}.
      */
-    final LinkedHashSet getConflicts()
+    final LinkedHashSet<String> getConflicts()
     {
         return this.conflicts;
     }
@@ -1324,7 +1313,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #mappings}.
      */
-    final List getMappings()
+    final List<Mapping> getMappings()
     {
         return this.mappings;
     }
@@ -1412,7 +1401,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #triggers}.
      */
-    final List getTriggers()
+    final List<BaseTrigger> getTriggers()
     {
         return this.triggers;
     }
@@ -1420,7 +1409,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #defineStatements}.
      */
-    final List getDefineStatements()
+    final List<String> getDefineStatements()
     {
         return this.defineStatements;
     }
@@ -1548,7 +1537,7 @@ abstract class AbstractRPMMojo
     /**
      * @return Returns the {@link #attachedArtifacts}.
      */
-    final List getAttachedArtifacts()
+    final List<String> getAttachedArtifacts()
     {
         return this.attachedArtifacts;
     }
@@ -1558,7 +1547,7 @@ abstract class AbstractRPMMojo
      * 
      * @return Returns the {@code FilterWrapper}s to use for filtering resources.
      */
-    final List/* FileUtils.FilterWrapper */getFilterWrappers()
+    final List<FileUtils.FilterWrapper> getFilterWrappers()
     {
         return this.defaultFilterWrappers;
     }

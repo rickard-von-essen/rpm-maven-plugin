@@ -21,6 +21,7 @@ package org.codehaus.mojo.rpm;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 /**
  * A base class to support <a href="http://rpm.org/api/4.4.2.2/triggers.html">triggers</a>.
@@ -35,7 +36,7 @@ public abstract class BaseTrigger
     /**
      * List of triggers.
      */
-    private java.util.List/* <String> */triggers;
+    private List<String> triggers;
 
     /**
      * Gets the packages/versions to trigger on.
@@ -46,7 +47,7 @@ public abstract class BaseTrigger
      * 
      * @return Returns the {@link #triggers}.
      */
-    public java.util.List getTriggers()
+    public List<String> getTriggers()
     {
         return this.triggers;
     }
@@ -57,7 +58,7 @@ public abstract class BaseTrigger
      * @param triggers The {@link #triggers} to set.
      * @see #getTriggers()
      */
-    public void setTriggers( java.util.List triggers )
+    public void setTriggers( List<String> triggers )
     {
         this.triggers = triggers;
     }

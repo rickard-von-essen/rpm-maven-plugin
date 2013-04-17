@@ -175,15 +175,15 @@ final class SpecWriter
                 continue;
             }
 
-            final List includes = map.getCopiedFileNamesRelativeToDestination();
-            final List links = map.getLinkedFileNamesRelativeToDestination();
+            final List<String> includes = map.getCopiedFileNamesRelativeToDestination();
+            final List<String> links = map.getLinkedFileNamesRelativeToDestination();
 
             final DirectoryScanner scanner = new DirectoryScanner();
             scanner.setBasedir( absoluteDestination );
 
             // the linked files are not present yet (will be "installed" during rpm build)
             // so they cannot be "included"
-            scanner.setIncludes( includes.isEmpty() ? null : (String[]) includes.toArray( new String[includes.size()] ) );
+            scanner.setIncludes( includes.isEmpty() ? null : includes.toArray( new String[includes.size()] ) );
             scanner.setExcludes( null );
             scanner.scan();
 
@@ -279,8 +279,8 @@ final class SpecWriter
 
             for ( Iterator entryIter = mojo.getLinkTargetToSources().entrySet().iterator(); entryIter.hasNext(); )
             {
-                final Map.Entry directoryToSourcesEntry = (Entry) entryIter.next();
-                String directory = (String) directoryToSourcesEntry.getKey();
+                final Map.Entry<String, List<SoftlinkSource>> directoryToSourcesEntry = (Entry<String, List<SoftlinkSource>>) entryIter.next();
+                String directory = directoryToSourcesEntry.getKey();
                 if ( directory.startsWith( "/" ) )
                 {
                     directory = directory.substring( 1 );
@@ -290,12 +290,12 @@ final class SpecWriter
                     directory = directory.substring( 0, directory.length() - 1 );
                 }
 
-                final List sources = (List) directoryToSourcesEntry.getValue();
+                final List<SoftlinkSource> sources = directoryToSourcesEntry.getValue();
                 final int sourceCnt = sources.size();
 
                 if ( sourceCnt == 1 )
                 {
-                    final SoftlinkSource linkSource = (SoftlinkSource) sources.get( 0 );
+                    final SoftlinkSource linkSource = sources.get( 0 );
 
                     final String macroEvaluatedLocation = linkSource.getMacroEvaluatedLocation();
 
