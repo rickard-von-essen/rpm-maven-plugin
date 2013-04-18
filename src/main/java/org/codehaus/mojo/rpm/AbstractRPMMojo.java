@@ -841,28 +841,28 @@ abstract class AbstractRPMMojo
         validateWorkarea();
 
         // Build each directory in the top directory
-        for ( int i = 0; i < topdirs.length; i++ )
+        for ( String topdir : topdirs )
         {
-            File d = new File( workarea, topdirs[i] );
-            if ( d.exists() )
+            File dir = new File( workarea, topdir );
+            if ( dir.exists() )
             {
-                getLog().info( "Directory " + d.getAbsolutePath() + " already exists. Deleting all contents." );
+                getLog().info( "Directory " + dir.getAbsolutePath() + " already exists. Deleting all contents." );
 
                 try
                 {
-                    FileUtils.cleanDirectory( d );
+                    FileUtils.cleanDirectory( dir );
                 }
                 catch ( IOException e )
                 {
-                    throw new MojoExecutionException( "Unable to clear directory: " + d.getName(), e );
+                    throw new MojoExecutionException( "Unable to clear directory: " + dir.getName(), e );
                 }
             }
             else
             {
-                getLog().info( "Creating directory " + d.getAbsolutePath() );
-                if ( !d.mkdir() )
+                getLog().info("Creating directory " + dir.getAbsolutePath());
+                if ( !dir.mkdir() )
                 {
-                    throw new MojoFailureException( "Unable to create directory " + d.getAbsolutePath() );
+                    throw new MojoFailureException( "Unable to create directory " + dir.getAbsolutePath() );
                 }
             }
         }
