@@ -389,7 +389,7 @@ public class Mapping
         defaultGrp = defaultGrp == null ? "-" : defaultGrp;
         defaultUsr = defaultUsr == null ? "-" : defaultUsr;
         
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if ( configuration != null  && !"FALSE".equalsIgnoreCase( configuration ) )
         {
@@ -590,7 +590,7 @@ public class Mapping
     public String toString()
     {
         boolean sourceShown = false;
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         sb.append( "[\"" + getDestination() + "\" " );
         sb.append( "{" + getAttrString( null, null, null ) + "}" );

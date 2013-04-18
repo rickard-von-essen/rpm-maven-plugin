@@ -61,7 +61,7 @@ public class ArtifactMap
     /** {@inheritDoc} */
     public String toString()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append( "[artifacts" );
 
         if ( classifiers != null )

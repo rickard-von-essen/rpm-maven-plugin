@@ -435,7 +435,7 @@ final class SpecWriter
             return "";
         }
 
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
 
         if ( defaultFilemode != null )
         {

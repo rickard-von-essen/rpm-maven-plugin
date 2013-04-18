@@ -972,7 +972,7 @@ abstract class AbstractRPMMojo
             {
                 try
                 {
-                    StringBuffer sb = new StringBuffer();
+                    StringBuilder sb = new StringBuilder();
                     BufferedReader br = new BufferedReader( new FileReader( changelogFile ) );
                     while ( br.ready() )
                     {

@@ -129,7 +129,7 @@ public class Dependency
     /** {@inheritDoc} */
     public String toString()
     {
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         sb.append( "[dependencies" );
 
         if ( includes != null )
@@ -160,7 +160,7 @@ public class Dependency
     private List parseList( List<String> in )
         throws MojoExecutionException
     {
-        List<Artifact> retval = new ArrayList();
+        List<Artifact> retval = new ArrayList<Artifact>();
 
         for ( String s : in )
         {
