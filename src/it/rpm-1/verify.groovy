@@ -2,17 +2,30 @@ def rpm = new File(localRepositoryPath, "org/codehaus/mojo/rpm/its/rpm-1/1.0/rpm
 if (!rpm.exists())
     throw new AssertionError("RPM artifact not created: ${rpm.getAbsolutePath()}")
 
-File filteredFile = new File(basedir, "target/rpm/rpm-1/buildroot/usr/myusr/app/bin/filter.txt");
-if (!filteredFile.exists())
-    throw new AssertionError("/usr/myusr/app/bin/filter.txt does not exist")
-if (!"org.codehaus.mojo.rpm.its".equals(filteredFile.readLines()[0]))
-    throw new AssertionError("contents of filter.txt expected[org.codehaus.mojo.rpm.its] actual[${filteredFile.readLines()[0]}]");
+// Test that we actually filtered the files.
+// This requires cpio version >= 2.10, which is missing in Mac OS X 10.8
+proc = ["cpio", "--version"].execute()
+proc.waitFor()
+cpioVersion = (proc.in.text =~ /(\d+\.\d+)/)[0][1]
 
-File filteredVersionFile = new File(basedir, "target/rpm/rpm-1/buildroot/usr/myusr/app/bin/filter-version.txt")
-if (!filteredVersionFile.exists())
-    throw new AssertionError("/usr/myusr/app/bin/filter-version.txt does not exist");
-if (!"1.0-1".equals(filteredVersionFile.readLines()[0]))
-    throw new AssertionError("contents of filter-version.txt expected[1.0-1] actual[${filteredVersionFile.readLines()[0]}]");
+if (cpioVersion ==~ /2.1\d/ || cpioVersion ==~ /2.\d\d/ ) {
+
+    proc = ["sh", "-c", "rpm2cpio ${rpm.getAbsolutePath()} | cpio -iv --to-stdout '.*filter.txt'"].execute()
+    proc.waitFor()
+    content = proc.in.text
+
+    if (!"org.codehaus.mojo.rpm.its".equals(content))
+        throw new java.lang.AssertionError("contents of filter.txt expected[org.codehaus.mojo.rpm.its] actual[${content}]");
+
+    proc = ["sh", "-c", "rpm2cpio ${rpm.getAbsolutePath()} | cpio -iv --to-stdout '.*filter-version.txt'"].execute()
+    proc.waitFor()
+    content = proc.in.text
+
+    if (!"1.0-1".equals(content))
+        throw new java.lang.AssertionError("contents of filter-version.txt expected[1.0-1] actual[${content}]");
+} else
+    println "WARNING: cpio version < 2.10, skipping filter test. (Mac OS X?)"
+
 
 lines = new File(basedir, "target/rpm/rpm-1/SPECS/rpm-1.spec").readLines()
 [
