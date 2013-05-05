@@ -32,7 +32,7 @@ import org.apache.maven.project.MavenProjectHelper;
  * @version $Id$
  * @since 2.0-beta-2
  */
-@Mojo( name = "attached-rpm", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.COMPILE )
+@Mojo( name = "attached-rpm", defaultPhase = LifecyclePhase.PACKAGE, requiresDependencyResolution = ResolutionScope.RUNTIME )
 public class AttachedRPMMojo
     extends AbstractRPMMojo
 {
